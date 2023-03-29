@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<style>
+        body {
+        background: black;
+        }
+        .renglon {
+            color:white;
+            display: flex;
+        }
+        .celdas{
+         font-size: 140px;
+         color: white;
+         font-family: Arial, Helvetica, sans-serif;
+         text-align: center;
+         display: block;
+            height: 170px;
+            width: 170px;
+            border: 1px solid white;
+      color: black;
+        }
+        nav h1{
+    color: white;
+    border: 2px white solid;
+    padding: 10px;        
+    }
+    a {
+        color: wheat;
+        font-weight:bold;
+        text-decoration: none;
+        font-size: 20px;
+        margin:0 auto;
+        margin-left: 2em;
+        
+    }
+    nav {
+        border: 4px solid white;
+        
+        padding: 0.4em;
+        background-color: #aaa ;
+        display: flex;
+        align-items:center;
+        display: flex;
+        
+    }
+    ul {
+        display: flex;
+        justify-content: end;
+    }
+    nav ul li {
+        list-style: none;
+        float: right;
+        justify-content: end;
+    }
+
+
+    </style>
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./estilos.css">
+    <title>Document</title>
+
+</head>
+<body>
+    <nav>
+        <h1>1 vs 1</h1>
+        <ul>
+        <li><a href="/">Jugar contra la PC</a></li>
+        <li><a href="/1vs1">1 vs 1</a></li>
+    </ul>
+    </nav>
+ <h1 id="h1" style="color:white">Comienza el jugador X</h1>
+<h2 id="h2" style="color:white"></h2>
+
+ <div id="Todo"
+style="height: 516px; 
+width:516px;
+border: 3px white solid;
+align-items: center;
+padding: 0px;
+justify-content: right;">
+<div class="renglon">
+<div class="celdas" id="c1" ng-model="n1"></div>
+<div class="celdas" id="c2" ng-model="n2"></div>
+<div class="celdas" id="c3" ng-model="n3"></div>
+</div>
+
+<div class="renglon">
+<div class="celdas" id="c4" ng-model="n4"></div>
+<div class="celdas" id="c5" ng-model="n5"></div>
+<div class="celdas" id="c6" ng-model="n6"></div></div>
+
+<div class="renglon">
+<div class="celdas" id="c7" ng-model="n7"></div>
+<div class="celdas" id="c8" ng-model="n8"></div>
+<div class="celdas" id="c9" ng-model="n9"></div></div>
+
+<script>
+    const c1= document.getElementById('c1')
+const c2= document.getElementById('c2')
+const c3= document.getElementById('c3')
+const c4= document.getElementById('c4')
+const c5= document.getElementById('c5')
+const c6= document.getElementById('c6')
+const c7= document.getElementById('c7')
+const c8= document.getElementById('c8')
+const c9= document.getElementById('c9')
+
+const Titulo = document.getElementById('h1')
+const SubTitulo = document.getElementById('h2')
+
+const todo = document.getElementById('Todo')
+let ContadorClicks = 0
+
+let lineas = []
+
+const celdas = [c1,c2,c3,c4,c5,c6,c7,c8,c9]
+celdas.forEach(celda=>{
+    celda.setAttribute('style','color:white;')
+})
+let HayGanador = 0
+
+
+                    //La función
+
+todo.addEventListener('click',(e)=>{
+    e.preventDefault()
+    Titulo.textContent=''
+    SubTitulo.textContent=''
+    const elemento = e.target.id
+    const NElemento = e.target.textContent
+
+    ContadorClicks++
+    var turno = ContadorClicks%2
+
+    if (e.target.textContent){
+        ContadorClicks--
+        if (turno===0) {
+            SubTitulo.textContent='Turno del jugador O'   
+        
+        
+     }
+        else if (turno===1){
+            SubTitulo.textContent='Turno del jugador X'   
+
+     }
+    }
+
+    else {
+
+
+
+        if (turno===0) {
+            SubTitulo.textContent='Turno del jugador X'   
+            e.target.textContent='O'
+
+    }
+        else if (turno===1){
+            SubTitulo.textContent='Turno del jugador O'   
+            e.target.textContent='X'
+        }
+
+
+
+        const linea1 =c1.textContent+c2.textContent+c3.textContent
+        const linea2 =c4.textContent+c5.textContent+c6.textContent
+        const linea3 =c7.textContent+c8.textContent+c9.textContent
+
+        const linea4 =c1.textContent+c4.textContent+c7.textContent
+        const linea5 =c2.textContent+c5.textContent+c8.textContent
+        const linea6 =c3.textContent+c6.textContent+c9.textContent
+
+        const linea7 =c1.textContent+c5.textContent+c9.textContent
+        const linea8 =c3.textContent+c5.textContent+c7.textContent
+
+        lineas = [linea1,linea2,linea3,linea4,linea5,linea6,linea7,linea8]
+
+        let lineaganadora=''
+        lineas.forEach((e)=>{                                  //La parte del ganador
+            if (e==='XXX'||e==='OOO'){
+            lineaganadora=e
+            HayGanador++
+            }
+            
+            if (HayGanador>0){
+                Titulo.textContent=`Ganó el jugador ${lineaganadora[0]}!`
+                SubTitulo.textContent='Click para jugar de nuevo'
+                todo.addEventListener(('click'),(f)=>{
+                location.reload()
+                })
+                    }
+            else{
+
+
+
+                let CuadradosLlenos = 0
+                celdas.forEach((c)=>{       //La parte del empate
+                    const T = c.textContent
+                    if (T!=='') { CuadradosLlenos++}
+                    })
+                if (CuadradosLlenos===9) {
+                    Titulo.textContent='EMPATE!'
+                    SubTitulo.textContent='Toca para empezar de nuevo'  
+
+                    todo.addEventListener('click',()=>{
+                        location.reload()
+                    })
+
+                }
+                else if (CuadradosLlenos<9){
+
+
+                if (turno) {
+                    turno.textContent=('Le toca a O')
+                }
+                else {
+                    turno.textContent=('Le toca a X')
+                }}
+
+                }})
+                }
+
+
+                })
+
+
+
+</script>
+</body>
+</html>

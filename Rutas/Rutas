@@ -1,0 +1,16 @@
+const express = require('express')
+const router = express.Router()
+
+router.get('/',(req,res) =>{
+    res.render('1vs1.html' , {title:'Principal'})
+})
+
+router.get('/informacion',(req,res) =>{
+    res.render('about.html' , {title:'Informacion'})
+})
+
+router.get('/contacto',(req,res) =>{
+    res.render('contact.html' , {title:'Contacto'})
+})
+
+module.exports = router
