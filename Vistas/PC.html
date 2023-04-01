@@ -5,6 +5,14 @@
         body {
 background-color: black;
         }
+        #Cuadricula {
+            height: 516px; 
+            width:516px;
+            border: 3px white solid;
+            align-items: center;
+            padding: 0px;
+            justify-content: right;
+        }
         .letra{
             font-size:30px;
             color: white;
@@ -23,11 +31,7 @@ background-color: black;
       color: white;
         }
         
-        nav h1{
-    color: white;
-    border: 2px white solid;
-    padding: 10px;        
-    }
+        
     a {
         color: wheat;
         font-weight:bold;
@@ -38,67 +42,68 @@ background-color: black;
         
     }
     nav {
-        border: 4px solid white;
-        
+        border: 1px solid rgba(85, 85, 85, 0);
         padding: 0.4em;
-        background-color: #aaa ;
+        background-color: #4b4b4b ;
         display: flex;
         align-items:center;
-        display: flex;
         list-style: none;
+        justify-content:space-between;
     }
+        nav h1{
+            color: white;
+            cursor:default;
+            padding: 10px;        
+        }
     ul {
         display: flex;
-        justify-content: end;
         list-style: none;
     }
     nav ul li {
         list-style: none;
     }   
+    .activo {
         
+        padding: .5em;
+    }
     </style>
    
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./estilos.css">
+    
  
     <title>Document</title>
 </head>
 <body>
     <nav>
         <h1>Jugar contra la PC</h1>
-        <li><a href="/">Jugar contra la PC</a></li>
+        <ul>
+        <li><a class="activo" href="/">Jugar contra la PC</a></li>
         <li><a href="/1vs1">1 vs 1</a></li>
+        </ul>
     </nav>
 <h1 id="turno" class="letra"></h1>
 <h2 id="comentario" class="letra"></h2>
 
 
- <div id="Todo"
-style="height: 516px; 
-width:516px;
-border: 3px black solid;
-align-items: center;
-padding: 0px;
-justify-content: right;">
-<div class="renglon">
-<div class="celdas" id="c1" ng-model="n1"></div>
-<div class="celdas" id="c2" ng-model="n2"></div>
-<div class="celdas" id="c3" ng-model="n3"></div>
-</div>
-
-<div class="renglon">
-<div class="celdas" id="c4" ng-model="n4"></div>
-<div class="celdas" id="c5" ng-model="n5"></div>
-<div class="celdas" id="c6" ng-model="n6"></div></div>
-
-<div class="renglon">
-<div class="celdas" id="c7" ng-model="n7"></div>
-<div class="celdas" id="c8" ng-model="n8"></div>
-<div class="celdas" id="c9" ng-model="n9"></div></div>
-
-</div>
+<div id="Cuadricula">
+    <div class="renglon">
+    <div class="celdas" id="c1" ng-model="n1"></div>
+    <div class="celdas" id="c2" ng-model="n2"></div>
+    <div class="celdas" id="c3" ng-model="n3"></div>
+    </div>
+    
+    <div class="renglon">
+    <div class="celdas" id="c4" ng-model="n4"></div>
+    <div class="celdas" id="c5" ng-model="n5"></div>
+    <div class="celdas" id="c6" ng-model="n6"></div></div>
+    
+    <div class="renglon">
+    <div class="celdas" id="c7" ng-model="n7"></div>
+    <div class="celdas" id="c8" ng-model="n8"></div>
+    <div class="celdas" id="c9" ng-model="n9"></div></div>
+     </div>
 
 <script>
     
@@ -115,7 +120,7 @@ const c9= document.getElementById('c9')
 
 const turno = document.getElementById('turno')
 const comentario = document.getElementById('comentario')
-const todo = document.getElementById('Todo')
+const Cuadricula = document.getElementById('Cuadricula')
 
 //Datos
 let Casillas = [c1,c2,c3,c4,c5,c6,c7,c8,c9]
@@ -150,7 +155,7 @@ function Ganador (){
         
         if  (linea==='OOO'){turno.textContent='GANASTE!' }
         if  (linea==='XXX'){turno.textContent='PERDISTE!'}
-        todo.addEventListener('click',(e)=>location.reload())
+        Cuadricula.addEventListener('click',(e)=>location.reload())
         comentario.textContent='Click para jugar de nuevo'; 
        
 }
@@ -205,7 +210,7 @@ function inteligencia (){
 function empate () {
     turno.textContent='Empate!'
     comentario.textContent='Click para jugar de nuevo'
-    todo.addEventListener('click',()=>{
+    Cuadricula.addEventListener('click',()=>{
         location.reload()
         })
 }
@@ -291,13 +296,13 @@ function JJ (Casillas) {
             if (CJ===true){
                 turno.textContent='Turno del jugador'
               
-                todo.addEventListener('click',(e)=>{
+                Cuadricula.addEventListener('click',(e)=>{
 
                     let turno = 'terminado'
 
                 const elemento=e.target
                 let TC = elemento.textContent 
-                if (CJ===true) {                                                                //Todo esto es JJ
+                if (CJ===true) {                                                                //Cuadricula esto es JJ
                     if (TC!==''){CJ=true}
                 else if (TC==='') {
                     elemento.textContent='O';

@@ -6,6 +6,14 @@
         body {
         background: black;
         }
+        #Cuadricula {
+            height: 516px; 
+            width:516px;
+            border: 3px white solid;
+            align-items: center;
+            padding: 0px;
+            justify-content: right;
+        }
         .renglon {
             color:white;
             display: flex;
@@ -36,25 +44,30 @@
         
     }
     nav {
-        border: 4px solid white;
-        
+        border: 1px solid rgba(85, 85, 85, 0);
         padding: 0.4em;
-        background-color: #aaa ;
+        background-color: #4b4b4b ;
         display: flex;
         align-items:center;
-        display: flex;
-        
+        list-style: none;
+        justify-content:space-between;
     }
+        nav h1{
+            color: white;
+            border: 2px white solid;
+            padding: 10px;        
+        }
     ul {
         display: flex;
-        justify-content: end;
+        list-style: none;
     }
     nav ul li {
         list-style: none;
-        float: right;
-        justify-content: end;
+    }   
+    .activo {
+        border: 1px white solid;
+        padding: .5em;
     }
-
 
     </style>
 
@@ -62,7 +75,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./estilos.css">
+   
     <title>Document</title>
 
 </head>
@@ -71,19 +84,13 @@
         <h1>1 vs 1</h1>
         <ul>
         <li><a href="/">Jugar contra la PC</a></li>
-        <li><a href="/1vs1">1 vs 1</a></li>
+        <li><a class="activo" href="/1vs1">1 vs 1</a></li>
     </ul>
     </nav>
  <h1 id="h1" style="color:white">Comienza el jugador X</h1>
 <h2 id="h2" style="color:white"></h2>
 
- <div id="Todo"
-style="height: 516px; 
-width:516px;
-border: 3px white solid;
-align-items: center;
-padding: 0px;
-justify-content: right;">
+ <div id="Cuadricula">
 <div class="renglon">
 <div class="celdas" id="c1" ng-model="n1"></div>
 <div class="celdas" id="c2" ng-model="n2"></div>
@@ -99,7 +106,7 @@ justify-content: right;">
 <div class="celdas" id="c7" ng-model="n7"></div>
 <div class="celdas" id="c8" ng-model="n8"></div>
 <div class="celdas" id="c9" ng-model="n9"></div></div>
-
+ </div>
 <script>
     const c1= document.getElementById('c1')
 const c2= document.getElementById('c2')
@@ -114,7 +121,7 @@ const c9= document.getElementById('c9')
 const Titulo = document.getElementById('h1')
 const SubTitulo = document.getElementById('h2')
 
-const todo = document.getElementById('Todo')
+const Cuadricula = document.getElementById('Cuadricula')
 let ContadorClicks = 0
 
 let lineas = []
@@ -128,7 +135,7 @@ let HayGanador = 0
 
                     //La función
 
-todo.addEventListener('click',(e)=>{
+Cuadricula.addEventListener('click',(e)=>{
     e.preventDefault()
     Titulo.textContent=''
     SubTitulo.textContent=''
@@ -190,7 +197,7 @@ todo.addEventListener('click',(e)=>{
             if (HayGanador>0){
                 Titulo.textContent=`Ganó el jugador ${lineaganadora[0]}!`
                 SubTitulo.textContent='Click para jugar de nuevo'
-                todo.addEventListener(('click'),(f)=>{
+                Cuadricula.addEventListener(('click'),(f)=>{
                 location.reload()
                 })
                     }
@@ -207,7 +214,7 @@ todo.addEventListener('click',(e)=>{
                     Titulo.textContent='EMPATE!'
                     SubTitulo.textContent='Toca para empezar de nuevo'  
 
-                    todo.addEventListener('click',()=>{
+                    Cuadricula.addEventListener('click',()=>{
                         location.reload()
                     })
 
